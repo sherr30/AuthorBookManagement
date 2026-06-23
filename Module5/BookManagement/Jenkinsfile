@@ -39,6 +39,14 @@ pipeline {
             }
         }
 
+        stage('Docker Build') {
+            steps {
+                dir('Module5/BookManagement') {
+                    bat 'docker build -t authorbookmanagement:latest .'
+                }
+            }
+        }
+
     }
 
     post {
