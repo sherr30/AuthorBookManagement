@@ -14,32 +14,37 @@ pipeline {
                 echo 'Code checkout completed'
             }
         }
-
-        stage('Build') {
-            steps {
-                bat 'mvn clean compile'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                bat 'mvn test'
-            }
-        }
-
-        stage('Package') {
-            steps {
-                bat 'mvn clean package'
-            }
-        }
-
-        stage('Docker Build') {
-            steps {
-                bat 'docker build -t authorbookmanagement:latest .'
-            }
+stage('Build') {
+    steps {
+        dir('Module5/BookManagement') {
+            bat 'mvn clean compile'
         }
     }
+}
 
+stage('Test') {
+    steps {
+        dir('Module5/BookManagement') {
+            bat 'mvn test'
+        }
+    }
+}
+
+stage('Package') {
+    steps {
+        dir('Module5/BookManagement') {
+            bat 'mvn clean package'
+        }
+    }
+}
+
+stage('Docker Build') {
+    steps {
+        dir('Module5/BookManagement') {
+            bat 'docker build -t authorbookmanagement:latest .'
+        }
+    }
+}
     post {
         success {
             echo 'BUILD SUCCESS'
