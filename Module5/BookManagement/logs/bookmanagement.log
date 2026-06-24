@@ -713,3 +713,45 @@ Identify and stop the process that's listening on port 8081 or configure this ap
 2026-06-24T11:17:40.648+05:30  INFO 19260 --- [BookManagement] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
 2026-06-24T11:17:40.655+05:30  INFO 19260 --- [BookManagement] [restartedMain] c.n.B.BookManagementApplication          : Started BookManagementApplication in 1.935 seconds (process running for 388.493)
 2026-06-24T11:17:40.658+05:30  INFO 19260 --- [BookManagement] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-06-24T13:13:43.190+05:30  INFO 19260 --- [BookManagement] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 26 class path changes (0 additions, 0 deletions, 26 modifications)
+2026-06-24T13:13:43.209+05:30  INFO 19260 --- [BookManagement] [Thread-7] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-06-24T13:13:43.252+05:30  INFO 19260 --- [BookManagement] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-06-24T13:13:43.265+05:30  INFO 19260 --- [BookManagement] [Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-24T13:13:43.274+05:30  INFO 19260 --- [BookManagement] [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2026-06-24T13:13:43.317+05:30  INFO 19260 --- [BookManagement] [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2026-06-24T13:13:43.688+05:30  INFO 19260 --- [BookManagement] [restartedMain] c.n.B.BookManagementApplication          : Starting BookManagementApplication using Java 21.0.10 with PID 19260 (C:\Users\sreyanshsrivastava\OneDrive - Nagarro\Desktop\Work\sreyansh-srivastava_3221514\Module5\BookManagement\target\classes started by sreyanshsrivastava in C:\Users\sreyanshsrivastava\OneDrive - Nagarro\Desktop\Work\sreyansh-srivastava_3221514\Module5\BookManagement)
+2026-06-24T13:13:43.691+05:30 DEBUG 19260 --- [BookManagement] [restartedMain] c.n.B.BookManagementApplication          : Running with Spring Boot v3.5.15, Spring v6.2.19
+2026-06-24T13:13:43.694+05:30  INFO 19260 --- [BookManagement] [restartedMain] c.n.B.BookManagementApplication          : No active profile set, falling back to 1 default profile: "default"
+2026-06-24T13:13:45.583+05:30  INFO 19260 --- [BookManagement] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-24T13:13:45.655+05:30  INFO 19260 --- [BookManagement] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 66 ms. Found 2 JPA repository interfaces.
+2026-06-24T13:13:46.282+05:30  INFO 19260 --- [BookManagement] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-06-24T13:13:46.290+05:30  INFO 19260 --- [BookManagement] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-24T13:13:46.291+05:30  INFO 19260 --- [BookManagement] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-06-24T13:13:46.408+05:30  INFO 19260 --- [BookManagement] [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2026-06-24T13:13:46.421+05:30  INFO 19260 --- [BookManagement] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2705 ms
+2026-06-24T13:13:46.775+05:30  INFO 19260 --- [BookManagement] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-24T13:13:46.792+05:30  INFO 19260 --- [BookManagement] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-06-24T13:13:46.830+05:30  INFO 19260 --- [BookManagement] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-24T13:13:46.839+05:30  INFO 19260 --- [BookManagement] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2026-06-24T13:13:47.081+05:30  INFO 19260 --- [BookManagement] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection org.postgresql.jdbc.PgConnection@4e4476b6
+2026-06-24T13:13:47.082+05:30  INFO 19260 --- [BookManagement] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2026-06-24T13:13:47.110+05:30  INFO 19260 --- [BookManagement] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-4)']
+	Database driver: undefined/unknown
+	Database version: 18.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-24T13:13:47.305+05:30  INFO 19260 --- [BookManagement] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-24T13:13:47.465+05:30  INFO 19260 --- [BookManagement] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-24T13:13:48.139+05:30  WARN 19260 --- [BookManagement] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-24T13:13:48.173+05:30  INFO 19260 --- [BookManagement] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-06-24T13:13:48.503+05:30  INFO 19260 --- [BookManagement] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-06-24T13:13:48.886+05:30  INFO 19260 --- [BookManagement] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-06-24T13:13:48.934+05:30  INFO 19260 --- [BookManagement] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-06-24T13:13:48.975+05:30  INFO 19260 --- [BookManagement] [restartedMain] c.n.B.BookManagementApplication          : Started BookManagementApplication in 5.492 seconds (process running for 7356.814)
+2026-06-24T13:13:48.981+05:30  INFO 19260 --- [BookManagement] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-06-24T13:36:28.884+05:30  INFO 19260 --- [BookManagement] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-24T13:36:28.886+05:30  INFO 19260 --- [BookManagement] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-24T13:36:28.890+05:30  INFO 19260 --- [BookManagement] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
