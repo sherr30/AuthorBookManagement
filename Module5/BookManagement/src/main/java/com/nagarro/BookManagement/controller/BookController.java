@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,7 +62,7 @@ public class BookController {
 
         Book savedBook = bookService.saveBook(book);
 
-        return ResponseEntity.ok(mapToResponseDTO(savedBook));
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapToResponseDTO(savedBook));
     }
 
     @GetMapping

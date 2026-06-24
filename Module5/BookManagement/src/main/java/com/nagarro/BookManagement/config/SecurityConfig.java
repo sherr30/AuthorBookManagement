@@ -1,5 +1,6 @@
 package com.nagarro.BookManagement.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,19 +16,25 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
+    @Value("${app.security.admin-password}")
+    private String adminPassword;
+
+    @Value("${app.security.librarian-password}")
+    private String librarianPassword;
+
     @Bean
     public InMemoryUserDetailsManager userDetailsService(
             PasswordEncoder passwordEncoder) {
 
         UserDetails admin = User.builder()
                 .username("admin")
-                .password(passwordEncoder.encode("admin123"))
+                .password(passwordEncoder.encode(adminPassword))
                 .roles("ADMIN")
                 .build();
 
         UserDetails librarian = User.builder()
                 .username("librarian")
-                .password(passwordEncoder.encode("lib123"))
+                .password(passwordEncoder.encode(librarianPassword))
                 .roles("LIBRARIAN")
                 .build();
 

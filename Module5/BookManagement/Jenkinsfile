@@ -2,9 +2,8 @@ pipeline {
     agent any
 
     environment {
-        REGISTRY      = 'docker.io'
         REGISTRY_REPO = 'your-dockerhub-username/authorbookmanagement'
-        IMAGE_TAG     = "${env.BUILD_NUMBER}"
+        IMAGE_TAG = "${env.BUILD_NUMBER}"
     }
 
     stages {
@@ -18,12 +17,7 @@ pipeline {
         stage('Test') {
             steps {
                 dir('Module5/BookManagement') {
-                    bat 'mvn test'
-                }
-            }
-            post {
-                always {
-                    junit 'Module5/BookManagement/target/surefire-reports/*.xml'
+                    sh 'mvn test'
                 }
             }
         }
@@ -31,33 +25,15 @@ pipeline {
         stage('Package') {
             steps {
                 dir('Module5/BookManagement') {
-                    bat 'mvn clean package -DskipTests'
+                    sh 'mvn clean package -DskipTests'
                 }
             }
         }
 
-       stage('Docker Build') {
-    steps {
-        dir('Module5/BookManagement') {
-            bat "wsl docker build -t ${REGISTRY_REPO}:${IMAGE_TAG} -t ${REGISTRY_REPO}:latest ."
-        }
-    }
-}
-
-        stage('Docker Push') {
-            when {
-                branch 'main'
-            }
+        stage('Docker Build') {
             steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'docker-registry-credentials',
-                    usernameVariable: 'REGISTRY_USER',
-                    passwordVariable: 'REGISTRY_PASS'
-                )]) {
-
-                    bat 'docker login -u %REGISTRY_USER% -p %REGISTRY_PASS%'
-                    bat "wsl docker push ${REGISTRY_REPO}:${IMAGE_TAG}"
-                    bat "wsl docker push ${REGISTRY_REPO}:latest"
+                dir('Module5/BookManagement') {
+                    sh "docker build -t ${REGISTRY_REPO}:${IMAGE_TAG} -t ${REGISTRY_REPO}:latest ."
                 }
             }
         }

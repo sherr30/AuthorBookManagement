@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.nagarro.BookManagement.entity.Book;
+import com.nagarro.BookManagement.repository.AuthorRepository;
 import com.nagarro.BookManagement.repository.BookRepository;
 import com.nagarro.BookManagement.service.impl.BookServiceImpl;
 
@@ -20,6 +21,9 @@ public class BookServiceImplTest {
 
     @Mock
     private BookRepository bookRepository;
+
+    @Mock
+    private AuthorRepository authorRepository;
 
     @InjectMocks
     private BookServiceImpl bookService;

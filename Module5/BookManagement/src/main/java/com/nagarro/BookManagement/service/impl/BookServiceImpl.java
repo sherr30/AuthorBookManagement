@@ -3,6 +3,7 @@ package com.nagarro.BookManagement.service.impl;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nagarro.BookManagement.entity.Author;
 import com.nagarro.BookManagement.entity.Book;
@@ -24,6 +25,7 @@ public class BookServiceImpl implements BookService {
     private final AuthorRepository authorRepository;
 
     @Override
+    @Transactional
     public Book saveBook(Book book) {
 
         log.info("Saving book: {}", book.getTitle());
@@ -67,6 +69,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public Book updateBook(Long id, Book book) {
 
         log.info("Updating book with id: {}", id);
@@ -96,6 +99,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public void deleteBook(Long id) {
 
         log.info("Deleting book with id: {}", id);
@@ -108,10 +112,23 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public List<Book> bulkUpdateBooks(List<Book> books) {
 
         log.info("Bulk updating {} books", books.size());
 
-        return bookRepository.saveAll(books);
+        return books.stream().map(book -> {
+
+            Long authorId = book.getAuthor().getId();
+
+            Author author = authorRepository.findById(authorId)
+                    .orElseThrow(() -> new AuthorNotFoundException(
+                            "Author not found with id: " + authorId));
+
+            book.setAuthor(author);
+
+            return bookRepository.save(book);
+
+        }).toList();
     }
 }

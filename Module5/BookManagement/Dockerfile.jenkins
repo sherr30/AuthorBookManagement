@@ -1,0 +1,17 @@
+FROM jenkins/jenkins:lts
+
+USER root
+
+ARG MAVEN_VERSION=3.9.16
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl docker.io \
+    && rm -rf /var/lib/apt/lists/* \
+    && curl -fsSL \
+       https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/${MAVEN_VERSION}/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
+       | tar -xz -C /opt \
+    && ln -s /opt/apache-maven-${MAVEN_VERSION}/bin/mvn /usr/local/bin/mvn
+
+ENV MAVEN_HOME=/opt/apache-maven-${MAVEN_VERSION}
+
+USER jenkins
