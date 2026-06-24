@@ -33,7 +33,12 @@ pipeline {
         stage('Docker Build') {
             steps {
                 dir('Module5/BookManagement') {
-                    bat "docker build -t ${REGISTRY_REPO}:${IMAGE_TAG} -t ${REGISTRY_REPO}:latest ."
+                    bat """
+                    wsl docker build ^
+                    -t ${REGISTRY_REPO}:${IMAGE_TAG} ^
+                    -t ${REGISTRY_REPO}:latest ^
+                    .
+                    """
                 }
             }
         }
