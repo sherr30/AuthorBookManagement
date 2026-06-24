@@ -1,25 +1,17 @@
 pipeline {
     agent any
 
-    stages {
+    environment {
+        REGISTRY      = 'docker.io'
+        REGISTRY_REPO = 'your-dockerhub-username/authorbookmanagement'
+        IMAGE_TAG     = "${env.BUILD_NUMBER}"
+    }
 
-        stage('Checkout SCM') {
-            steps {
-                checkout scm
-            }
-        }
+    stages {
 
         stage('Checkout') {
             steps {
-                echo 'Code checkout completed'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                dir('Module5/BookManagement') {
-                    sh 'mvn clean compile'
-                }
+                checkout scm
             }
         }
 
@@ -29,12 +21,17 @@ pipeline {
                     sh 'mvn test'
                 }
             }
+            post {
+                always {
+                    junit 'Module5/BookManagement/target/surefire-reports/*.xml'
+                }
+            }
         }
 
         stage('Package') {
             steps {
                 dir('Module5/BookManagement') {
-                    sh 'mvn clean package'
+                    sh 'mvn clean package -DskipTests'
                 }
             }
         }
@@ -42,27 +39,38 @@ pipeline {
         stage('Docker Build') {
             steps {
                 dir('Module5/BookManagement') {
-<<<<<<< HEAD
-                    bat 'docker build -t authorbookmanagement:latest .'
+                    sh "docker build -t ${REGISTRY_REPO}:${IMAGE_TAG} -t ${REGISTRY_REPO}:latest ."
                 }
             }
         }
 
-=======
-                    sh 'docker build -t authorbookmanagement:latest .'
+        stage('Docker Push') {
+            when {
+                branch 'main'
+            }
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'docker-registry-credentials',
+                    usernameVariable: 'REGISTRY_USER',
+                    passwordVariable: 'REGISTRY_PASS'
+                )]) {
+                    sh 'echo $REGISTRY_PASS | docker login -u $REGISTRY_USER --password-stdin'
+                    sh "docker push ${REGISTRY_REPO}:${IMAGE_TAG}"
+                    sh "docker push ${REGISTRY_REPO}:latest"
                 }
             }
         }
->>>>>>> a1fb068 (Updated pipeline for Linux Jenkins)
     }
 
     post {
         success {
-            echo 'BUILD SUCCESS'
+            echo "BUILD SUCCESS — image: ${env.REGISTRY_REPO}:${env.IMAGE_TAG}"
         }
-
         failure {
             echo 'BUILD FAILED'
+        }
+        always {
+            cleanWs()
         }
     }
 }
