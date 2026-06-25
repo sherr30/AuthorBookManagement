@@ -17,7 +17,7 @@ pipeline {
         stage('Test') {
             steps {
                 dir('Module5/BookManagement') {
-                    sh 'mvn test'
+                    bat 'mvn test'
                 }
             }
         }
@@ -36,7 +36,7 @@ pipeline {
         stage('Package') {
             steps {
                 dir('Module5/BookManagement') {
-                    sh 'mvn clean package -DskipTests'
+                    bat 'mvn clean package -DskipTests'
                 }
             }
         }
@@ -44,7 +44,12 @@ pipeline {
         stage('Docker Build') {
             steps {
                 dir('Module5/BookManagement') {
-                    sh "docker build -t ${REGISTRY_REPO}:${IMAGE_TAG} -t ${REGISTRY_REPO}:latest ."
+                    bat """
+                    wsl docker build ^
+                    -t ${REGISTRY_REPO}:${IMAGE_TAG} ^
+                    -t ${REGISTRY_REPO}:latest ^
+                    .
+                    """
                 }
             }
         }
