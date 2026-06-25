@@ -23,8 +23,7 @@ public class SecurityConfig {
     private String librarianPassword;
 
     @Bean
-    public InMemoryUserDetailsManager userDetailsService(
-            PasswordEncoder passwordEncoder) {
+    public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
 
         UserDetails admin = User.builder()
                 .username("admin")
@@ -38,46 +37,52 @@ public class SecurityConfig {
                 .roles("LIBRARIAN")
                 .build();
 
-        return new InMemoryUserDetailsManager(
-                admin,
-                librarian);
+        return new InMemoryUserDetailsManager(admin, librarian);
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(
-            HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable())
 
-            .authorizeHttpRequests(auth -> auth
+                .authorizeHttpRequests(auth -> auth
 
-                .requestMatchers(
-                        "/swagger-ui/**",
-                        "/v3/api-docs/**")
-                .permitAll()
+                        // Swagger
+                        .requestMatchers(
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/api-docs/**",
+                                "/webjars/**")
+                        .permitAll()
 
-                .requestMatchers(
-                        HttpMethod.GET,
-                        "/authors/**",
-                        "/books/**")
-                .hasAnyRole("ADMIN", "LIBRARIAN")
+                        // Actuator
+                        .requestMatchers("/actuator/**")
+                        .permitAll()
 
-                .requestMatchers(
-                        "/authors/**",
-                        "/books/**")
-                .hasRole("ADMIN")
+                        // GET APIs
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/authors/**",
+                                "/books/**")
+                        .hasAnyRole("ADMIN", "LIBRARIAN")
 
-                .anyRequest()
-                .authenticated())
+                        // ADMIN APIs
+                        .requestMatchers(
+                                "/authors/**",
+                                "/books/**")
+                        .hasRole("ADMIN")
 
-            .httpBasic(Customizer.withDefaults());
+                        .anyRequest()
+                        .authenticated())
+
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }

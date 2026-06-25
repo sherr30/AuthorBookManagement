@@ -21,7 +21,18 @@ pipeline {
                 }
             }
         }
-
+        
+        stage('Code quality Analysis') {
+            steps {
+				script{
+					echo " Stage: Code Quality Analysis"
+					//SonarQube Analysis (if configured)
+					//sh 'mvn sonar:sonar
+					echo 'code quality check completed"
+                }
+            }
+        }
+        
         stage('Package') {
             steps {
                 dir('Module5/BookManagement') {
