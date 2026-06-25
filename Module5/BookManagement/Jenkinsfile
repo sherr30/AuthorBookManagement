@@ -28,7 +28,7 @@ pipeline {
 					echo " Stage: Code Quality Analysis"
 					//SonarQube Analysis (if configured)
 					//sh 'mvn sonar:sonar
-					echo 'code quality check completed"
+					echo 'code quality check completed'
                 }
             }
         }
